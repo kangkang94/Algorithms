@@ -147,6 +147,41 @@ public class DuLinkList<T> {
 
 
     }
+    //向线性链式表的指定位置插入一个元素。
+    public void insert(T element , int index)
+    {
+        if (index < 0 || index > size)
+        {
+            throw new IndexOutOfBoundsException("线性表索引越界");
+        }
+        //如果还是空链表
+        if (header == null)
+        {
+            add(element);
+        }
+        else
+        {
+            //当index为0时，也就是在链表头处插入
+            if (index == 0)
+            {
+                addAtHeader(element);
+            }
+            else
+            {
+                //获取插入点的前一个节点
+                Node prev = getNodeByIndex(index - 1);
+                //获取插入点的节点
+                Node next = prev.next;
+                //让新节点的next引用指向next节点，prev引用指向prev节点
+                Node newNode = new Node(element , prev , next);
+                //让prev的next指向新节点。
+                prev.next = newNode;
+                //让prev的下一个节点的prev指向新节点
+                next.prev = newNode;
+                size++;
+            }
+        }
+    }
     //删除链式线性表中指定索引处的元素
     public T delete(int index)
     {
