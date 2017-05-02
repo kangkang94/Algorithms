@@ -284,6 +284,139 @@ public class BSTree<T extends Comparable<T>> {
     }
 
 
+    /**
+     * 递归实现，查找二叉树中与key值相同的结点
+     */
+
+    public BSTNode search(BSTNode node,T key){
+
+        if (node ==null){
+            return null;
+        }
+
+        int cmp = key.compareTo((T) node.getKey());
+
+        if (cmp<0){
+            search(node.left,key);
+        }else if (cmp>0){
+            search(node.right,key);
+        }else {
+            return node;
+        }
+
+        return null;
+    }
+
+    /**
+     * 非递归实现，查找二叉树中与key值相同的结点
+     */
+
+    public BSTNode searchNo(BSTNode node,T key){
+        if (node==null){
+            return null;
+        }
+
+        while(node!=null) {
+
+            int cmp = key.compareTo((T) node.getKey());
+
+            if (cmp < 0) {
+               node=node.left;
+            } else if (cmp > 0) {
+                node=node.right;
+            } else {
+                return node;
+            }
+
+        }
+
+        return null;
+
+    }
+
+
+    /**
+     * 查找最小结点
+     */
+
+    public BSTNode minimum(BSTNode node){
+
+        if (node==null){
+            return null;
+        }
+        while (node.left!=null){
+            node=node.left;
+        }
+
+        return node;
+    }
+
+
+
+    /**
+     * 查找最大结点
+     */
+
+    public BSTNode maxmum(BSTNode node){
+
+        if (node==null){
+            return null;
+        }
+        while (node.left!=null){
+            node=node.left;
+        }
+
+        return node;
+    }
+
+    /*
+     * 找结点(x)的后继结点。即，查找"二叉树中数据值大于该结点"的"最小结点"。
+     *  // 如果x存在右孩子，则"x的后继结点"为 "以其右孩子为根的子树的最小结点"。
+     *  // 如果x没有右孩子。则x有以下两种可能：
+     *  // (01) x是"一个左孩子"，则"x的后继结点"为 "它的父结点"。
+     *   // (02) x是"一个右孩子"，则查找"x的最低的父结点，并且该父结点要具有左孩子"，找到的这个"最低的父结点"就是"x的后继结点"。
+     */
+    public BSTNode succussor(BSTNode x){
+
+        if (x.right!=null){
+            return minimum(x);
+        }
+       // (01) x是"一个左孩子"，则"x的后继结点"为 "它的父结点"。
+        BSTNode y = x.parent;
+
+        while ((y!=null)&& (x==y.right)){
+
+            x=y;
+            y=y.parent;
+
+        }
+
+        return y;
+
+    }
+
+    /**
+     * 前驱
+     * @param x
+     * @return
+     */
+    public BSTNode presuccussor(BSTNode x){
+
+       if (x.left!=null){
+           return maxmum(x);
+       }
+
+       BSTNode y =x.parent;
+
+       while((y!=null)&&(x==y.left)){
+            x =y;
+            y=y.parent;
+       }
+
+        return y;
+    }
+
+
 
 
 
