@@ -97,6 +97,7 @@ public class SequenceList<T> {
         if (i<0 ||i>size){
             throw new IndexOutOfBoundsException("线性表索引越界了！");
         }
+        //插入元素需要扩容
         ensureCapacity(size+1);
         System.arraycopy(elements,i,elements,i+1,size-i);
         elements[i] = element;
